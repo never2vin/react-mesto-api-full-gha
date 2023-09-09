@@ -1,0 +1,18 @@
+.header__menu-icon {
+  display: none;
+}
+
+.header__menu-icon:hover {
+  opacity: .6;
+}
+
+@media screen and (max-width: 580px) {
+  .header__menu-icon {
+    display: block;
+    width: 24px;
+    height: 29px;
+    background: transparent url(../../../images/header-menu-icon.svg) no-repeat right / cover;
+    background-size: 24px 21px;
+    border: none;
+  }
+}

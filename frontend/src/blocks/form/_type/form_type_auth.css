@@ -1,0 +1,33 @@
+.form_type_auth {
+  /* heading */
+  --heading-color: #fff;
+  --heading-text-align: center;
+
+  --heading-margin-display-m: 0 0 49px;
+
+  --heading-fs-display-s: 20px;
+  --heading-lh-display-s: 24px;
+  --heading-margin-display-s: 0 0 39px;
+
+  /* input */
+  --input-color: #fff;
+  --input-border-bottom: 2px solid #ccc;
+  --input-padding-bottom: 8px;
+
+  /* input-type-error */
+  --input-type-error-bbc: #fff;
+
+  /* input-error */
+  --input-error-color: #fff;
+
+  /* submit */
+  --submit-color: #000;
+  --submit-bg-color: #fff;
+
+  --submit-margin-top-display-m: 188px;
+
+  --submit-fs-display-s: 16px;
+  --submit-lh-display-s: 19px;
+
+  --submit-margin-top-display-s: 144px;
+}

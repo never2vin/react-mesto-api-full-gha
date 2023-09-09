@@ -1,0 +1,10 @@
+.content__spinner {
+  margin: 36px auto;
+  min-height: calc(100vh - 351px - 82px);
+}
+
+@media screen and (max-width: 580px) {
+  .content__spinner {
+    min-height: calc(100vh - 257px - 82px);
+  }
+}

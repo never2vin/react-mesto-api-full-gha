@@ -1,0 +1,12 @@
+.place__like-icon {
+  width: 22px;
+  height: 19px;
+  border: none;
+  background: url(../../../images/place-like.svg) no-repeat center;
+  opacity: 1;
+  transition: opacity 0.5s;
+}
+
+.place__like-icon:hover {
+  opacity: .5;
+}

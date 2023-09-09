@@ -1,0 +1,6 @@
+.place__like {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  row-gap: 3px;
+}

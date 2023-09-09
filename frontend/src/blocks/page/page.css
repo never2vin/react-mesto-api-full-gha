@@ -1,0 +1,14 @@
+.page {
+  max-width: 880px;
+  font-family: 'Inter', Arial, sans-serif;
+  font-weight: 400;
+  color: #fff;
+  background-color: #000;
+  margin: 0 auto;
+}
+
+@media screen and (max-width: 879) {
+  .page {
+    max-width: calc(320px + (880 - 320)*((100vw - 320px)/(1280 - 320)));
+  }
+}

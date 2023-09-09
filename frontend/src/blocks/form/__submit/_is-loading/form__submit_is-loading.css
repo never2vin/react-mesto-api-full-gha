@@ -1,0 +1,25 @@
+@keyframes ellipsis {
+  from {
+    content: '.';
+  }
+  60% {
+    content: '..';
+  }
+  80% {
+    content: '...';
+  }
+  to {
+    content: '';
+  }
+}
+
+.form__submit_is-loading::before {
+  animation: ellipsis 2s linear infinite;
+  letter-spacing: 2px;
+  opacity: 0;
+}
+
+.form__submit_is-loading::after {
+  animation: ellipsis 2s linear infinite;
+  letter-spacing: 2px;
+}

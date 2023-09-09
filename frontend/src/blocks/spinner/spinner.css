@@ -1,0 +1,21 @@
+@keyframes spinner-circle {
+  0% { transform: rotate(-180deg); }
+  100% { transform: rotate(180deg); }
+}
+
+.content__spinner {
+  width: 3em;
+  height: 3em;
+  border-radius: 50%;
+}
+
+.content__spinner i::after {
+  position: absolute;
+  clip: rect(0, 3em, 3em, 1.5em);
+  width: 3em;
+  height: 3em;
+  content: '';
+  animation: spinner-circle 0.8s ease-in-out infinite;
+  border-radius: 50%;
+  box-shadow: inset 0 0 0 0.2em #fff;
+}

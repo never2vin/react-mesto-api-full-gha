@@ -1,0 +1,6 @@
+.page__button {
+  border: 1px solid #fff;
+  box-sizing: border-box;
+  cursor: pointer;
+  padding: 0;
+}

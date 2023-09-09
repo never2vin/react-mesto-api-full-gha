@@ -1,0 +1,9 @@
+.content__profile {
+  width: 100%;
+}
+
+@media screen and (max-width: 580px) {
+  .content__profile {
+    max-width: calc(100% - 19px*2);
+  }
+}
