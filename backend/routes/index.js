@@ -6,8 +6,11 @@ const cardsRouter = require('./cards');
 
 const auth = require('../middlewares/auth');
 const errorHandler = require('../middlewares/error-handler');
+const { requestLogger, errorLogger } = require('../middlewares/logger');
+
 const NotFoundError = require('../errors/not-found-error');
 
+router.use(requestLogger);
 router.use('/', authRouter);
 
 router.use(auth);
@@ -19,6 +22,7 @@ router.use((req, res, next) => {
   next(new NotFoundError('Ресурс не найден. Проверьте URL и метод запроса'));
 });
 
+router.use(errorLogger);
 router.use(errors());
 router.use(errorHandler);
 
