@@ -1,11 +1,12 @@
 const express = require('express');
-const router = require('./routes');
 
 const rateLimit = require('express-rate-limit');
 const helmet = require('helmet');
 const cors = require('cors');
 
 const mongoose = require('mongoose');
+const router = require('./routes');
+
 require('dotenv').config();
 
 const {
