@@ -8,14 +8,9 @@ yarn-error.log*
 
 # Dependency directory
 node_modules
-/.pnp
-.pnp.js
-
-# Testing
-/coverage
 
 # Production
-/build
+build/
 
 # Optional npm cache directory
 .npm
