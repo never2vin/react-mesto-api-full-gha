@@ -14,4 +14,4 @@ Frontend https://pr15.nomoredomainsicu.ru
 
 Backend https://api.pr15.nomoredomainsicu.ru
 
-IP-адрес 158.160.64.214
+IP 158.160.64.214
