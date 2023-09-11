@@ -21,7 +21,7 @@ const deleteCard = (req, res, next) => Card.findById(req.params.cardId)
   .orFail(HttpError.NotFoundError('Карточка не найдена'))
   .then((card) => {
     if (card.owner._id.toString() !== req.user._id) {
-      throw HttpError.NotFoundError('Можно удалять только собственные карточки');
+      throw HttpError.ForbiddenError('Можно удалять только собственные карточки');
     }
 
     return card.deleteOne();
