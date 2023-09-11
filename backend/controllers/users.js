@@ -1,4 +1,5 @@
 const User = require('../models/user');
+const getUser = require('../service/user');
 
 const statusCodes = require('../utils/constants').HTTP_STATUS;
 
@@ -11,17 +12,10 @@ const getUsers = (req, res, next) => User.find({})
   })
   .catch(next);
 
-const getCurrentUser = (req, res, next) => User.findById(req.user._id)
-  .then((user) => {
-    res.status(statusCodes.OK).send(user);
-  })
+const getCurrentUser = (req, res, next) => getUser(req.user._id, res)
   .catch(next);
 
-const getUserById = (req, res, next) => User.findById(req.params.userId)
-  .orFail()
-  .then((user) => {
-    res.status(statusCodes.OK).send(user);
-  })
+const getUserById = (req, res, next) => getUser(req.params.userId, res)
   .catch((error) => {
     console.log(error);
 
