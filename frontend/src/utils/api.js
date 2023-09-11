@@ -1,4 +1,4 @@
-const API_URL = process.env.REACT_APP_API_URL || 'https://api.pr15.nomoredomainsicu.ru';
+import API_URL from '../config';
 
 class Api {
   constructor(baseUrl) {

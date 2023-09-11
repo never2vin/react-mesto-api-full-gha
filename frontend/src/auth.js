@@ -1,4 +1,4 @@
-const baseUrl = process.env.REACT_APP_API_URL || 'https://api.pr15.nomoredomainsicu.ru';
+import baseUrl from './config';
 
 function makeRequest(url, method, body, token) {
   const options = {
