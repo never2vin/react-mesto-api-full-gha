@@ -4,7 +4,7 @@ const User = require('../models/user');
 
 const statusCodes = require('../utils/constants').HTTP_STATUS;
 
-const ValidationError = require('../errors/validation-error');
+const BadRequestError = require('../errors/bad-request-error');
 const ConflictError = require('../errors/conflict-error');
 const UnauthorizedError = require('../errors/unauthorized-error');
 
@@ -31,7 +31,7 @@ const createUser = (req, res, next) => {
       }
 
       if (error.name === 'ValidationError') {
-        next(new ValidationError(`${Object.values(error.errors).map((err) => err.message).join(', ')}`));
+        next(new BadRequestError(`${Object.values(error.errors).map((err) => err.message).join(', ')}`));
         return;
       }
 

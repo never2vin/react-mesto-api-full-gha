@@ -3,7 +3,6 @@ const User = require('../models/user');
 const statusCodes = require('../utils/constants').HTTP_STATUS;
 
 const BadRequestError = require('../errors/bad-request-error');
-const ValidationError = require('../errors/validation-error');
 const NotFoundError = require('../errors/not-found-error');
 
 const getUsers = (req, res, next) => User.find({})
@@ -51,7 +50,7 @@ const updateUser = (req, res, next) => User.findByIdAndUpdate(
     console.log(error);
 
     if (error.name === 'ValidationError') {
-      next(new ValidationError(`${Object.values(error.errors).map((err) => err.message).join(', ')}`));
+      next(new BadRequestError(`${Object.values(error.errors).map((err) => err.message).join(', ')}`));
       return;
     }
 

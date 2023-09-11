@@ -3,7 +3,6 @@ const Card = require('../models/card');
 const statusCodes = require('../utils/constants').HTTP_STATUS;
 
 const BadRequestError = require('../errors/bad-request-error');
-const ValidationError = require('../errors/validation-error');
 const NotFoundError = require('../errors/not-found-error');
 const ForbiddenError = require('../errors/forbidden-error');
 
@@ -22,7 +21,7 @@ const createCard = (req, res, next) => Card.create({ owner: req.user._id, ...req
     console.log(error);
 
     if (error.name === 'ValidationError') {
-      next(new ValidationError(`${Object.values(error.errors).map((err) => err.message).join(', ')}`));
+      next(new BadRequestError(`${Object.values(error.errors).map((err) => err.message).join(', ')}`));
       return;
     }
 
@@ -36,9 +35,9 @@ const deleteCard = (req, res, next) => Card.findById(req.params.cardId)
       throw new ForbiddenError('Можно удалять только собственные карточки');
     }
 
-    card.deleteOne();
-    res.status(statusCodes.OK).send({ message: 'Карточка удалена' });
+    return card.deleteOne();
   })
+  .then(() => res.status(statusCodes.OK).send({ message: 'Карточка удалена' }))
   .catch((error) => {
     console.log(error);
 
