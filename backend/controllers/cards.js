@@ -1,4 +1,5 @@
 const Card = require('../models/card');
+const updateLikeCard = require('../service/card');
 
 const statusCodes = require('../utils/constants').HTTP_STATUS;
 
@@ -54,16 +55,12 @@ const deleteCard = (req, res, next) => Card.findById(req.params.cardId)
     next(error);
   });
 
-const likeCard = (req, res, next) => Card.findByIdAndUpdate(
+const likeCard = (req, res, next) => updateLikeCard(
   req.params.cardId,
   { $addToSet: { likes: req.user._id } },
   { new: true },
+  res,
 )
-  .orFail()
-  // .populate('likes')
-  .then((user) => {
-    res.status(statusCodes.OK).send(user);
-  })
   .catch((error) => {
     console.log(error);
 
@@ -80,15 +77,12 @@ const likeCard = (req, res, next) => Card.findByIdAndUpdate(
     next(error);
   });
 
-const dislikeCard = (req, res, next) => Card.findByIdAndUpdate(
+const dislikeCard = (req, res, next) => updateLikeCard(
   req.params.cardId,
-  { $pull: { likes: req.user._id } },
+  { $addToSet: { likes: req.user._id } },
   { new: true },
+  res,
 )
-  .orFail()
-  .then((user) => {
-    res.status(statusCodes.OK).send(user);
-  })
   .catch((error) => {
     console.log(error);
 
