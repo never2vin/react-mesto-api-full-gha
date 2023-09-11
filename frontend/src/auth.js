@@ -1,4 +1,4 @@
-import baseUrl from './config';
+import API_URL from './config';
 
 function makeRequest(url, method, body, token) {
   const options = {
@@ -17,7 +17,7 @@ function makeRequest(url, method, body, token) {
     options.headers.Authorization = `Bearer ${token}`;
   }
 
-  return fetch(`${baseUrl}${url}`, options).then((res) => {
+  return fetch(`${API_URL}${url}`, options).then((res) => {
     return res.ok ? res.json() : Promise.reject(`Ошибка: ${res.status}`)
   });
 };
