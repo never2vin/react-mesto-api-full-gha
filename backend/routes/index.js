@@ -8,7 +8,7 @@ const auth = require('../middlewares/auth');
 const errorHandler = require('../middlewares/error-handler');
 const { requestLogger, errorLogger } = require('../middlewares/logger');
 
-const NotFoundError = require('../errors/not-found-error');
+const HttpError = require('../error/http-error');
 
 router.use(requestLogger);
 
@@ -26,7 +26,7 @@ router.use('/users', usersRouter);
 router.use('/cards', cardsRouter);
 
 router.use((req, res, next) => {
-  next(new NotFoundError('Ресурс не найден. Проверьте URL и метод запроса'));
+  next(HttpError.NotFoundError('Ресурс не найден. Проверьте URL и метод запроса'));
 });
 
 router.use(errorLogger);

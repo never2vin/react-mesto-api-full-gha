@@ -1,13 +1,12 @@
+const { HTTP_STATUS_OK } = require('http2').constants;
+
 const Card = require('../models/card');
-
-const ApiError = require('../errors/api-error');
-
-const statusCodes = require('../utils/constants').HTTP_STATUS;
+const HttpError = require('../error/http-error');
 
 const updateLikeCard = (id, update, options, res) => Card.findByIdAndUpdate(id, update, options)
-  .orFail(ApiError.NotFoundError('Карточка не найдена'))
+  .orFail(HttpError.NotFoundError('Карточка не найдена'))
   .then((card) => {
-    res.status(statusCodes.OK).send(card);
+    res.status(HTTP_STATUS_OK).send(card);
   });
 
 module.exports = updateLikeCard;

@@ -1,12 +1,10 @@
+const { HTTP_STATUS_OK, HTTP_STATUS_CREATED } = require('http2').constants;
+
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const User = require('../models/user');
 
-const statusCodes = require('../utils/constants').HTTP_STATUS;
-
-const BadRequestError = require('../errors/bad-request-error');
-const ConflictError = require('../errors/conflict-error');
-const UnauthorizedError = require('../errors/unauthorized-error');
+const HttpError = require('../error/http-error');
 
 const MONGO_DUPLICATE_KEY_ERROR = 11000;
 const SALT_ROUNDS = 10;
@@ -15,7 +13,7 @@ const { JWT_SECRET = 'SECRET_KEY' } = process.env;
 const createUser = (req, res, next) => {
   bcrypt.hash(req.body.password, SALT_ROUNDS)
     .then((hash) => User.create({ ...req.body, password: hash }))
-    .then((user) => res.status(statusCodes.CREATED).send({
+    .then((user) => res.status(HTTP_STATUS_CREATED).send({
       name: user.name,
       about: user.about,
       avatar: user.avatar,
@@ -23,15 +21,8 @@ const createUser = (req, res, next) => {
       _id: user._id,
     }))
     .catch((error) => {
-      console.log('error:', error);
-
       if (error.code === MONGO_DUPLICATE_KEY_ERROR) {
-        next(new ConflictError('Такой пользователь уже есть'));
-        return;
-      }
-
-      if (error.name === 'ValidationError') {
-        next(new BadRequestError(`${Object.values(error.errors).map((err) => err.message).join(', ')}`));
+        next(HttpError.ConflictError('Такой пользователь уже есть'));
         return;
       }
 
@@ -43,26 +34,17 @@ const login = (req, res, next) => {
   const { email, password } = req.body;
 
   User.findOne({ email }).select('+password')
-    .orFail()
+    .orFail(HttpError.UnauthorizedError())
     .then((user) => Promise.all([user, bcrypt.compare(password, user.password)]))
     .then(([user, isEqual]) => {
       if (!isEqual) {
-        throw new Error('UnauthorizedError');
+        throw HttpError.UnauthorizedError();
       }
 
       const token = jwt.sign({ _id: user._id }, JWT_SECRET, { expiresIn: '7d' });
-      res.status(statusCodes.OK).send({ token });
+      res.status(HTTP_STATUS_OK).send({ token });
     })
-    .catch((error) => {
-      console.log('error:', error);
-
-      if (error.name === 'DocumentNotFoundError' || error.message === 'UnauthorizedError') {
-        next(new UnauthorizedError('Email или пароль неверный'));
-        return;
-      }
-
-      next(error);
-    });
+    .catch(next);
 };
 
 module.exports = {
